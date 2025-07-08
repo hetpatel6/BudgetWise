@@ -43,7 +43,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - your-email@domain.com # Replace with your email
+          - hetp7986@gmail.com # Replace with your email
         notify:
           success: true
           failure: true
