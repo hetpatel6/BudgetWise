@@ -4,7 +4,7 @@ workflows:
     max_build_duration: 60
     instance_type: mac_mini_m1
     environment:
-      node: 18
+      node: 18.x
       java: 17
     cache:
       cache_paths:
@@ -12,9 +12,7 @@ workflows:
         - ~/.npm
     scripts:
       - name: Install dependencies
-        script: |
-          npm install
-          npx react-native-asset
+        script: npm install
       - name: Clean build directory
         script: |
           cd android
@@ -25,10 +23,10 @@ workflows:
         script: |
           cd android
           chmod +x ./gradlew
-      - name: Build Android APK with debug info
+      - name: Build Android APK
         script: |
           cd android
-          ./gradlew assembleRelease --info
+          ./gradlew assembleRelease --stacktrace
     artifacts:
       - android/app/build/outputs/apk/release/*.apk
     publishing:
