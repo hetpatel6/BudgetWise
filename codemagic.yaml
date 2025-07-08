@@ -1,15 +1,23 @@
 workflows:
-  android:
-    name: Build Android APK
+  android-build:
+    name: Android Build
     max_build_duration: 60
+    instance_type: mac_mini_m1
     environment:
-      node: 16.13.1
+      node: 16.x
       java: 11
+    cache:
+      cache_paths:
+        - ~/.gradle/caches
+        - ~/.npm
     scripts:
-      - npm install
-      - cd android
-      - chmod +x gradlew
-      - ./gradlew clean
-      - ./gradlew assembleRelease
+      - name: Install dependencies
+        script: npm install
+      - name: Set Android SDK location
+        script: echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/android/local.properties"
+      - name: Build Android APK
+        script: |
+          cd android
+          ./gradlew assembleRelease
     artifacts:
-      - android/app/build/outputs/**/*.apk
+      - android/app/build/outputs/apk/release/*.apk
