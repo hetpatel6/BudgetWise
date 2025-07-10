@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { addTransaction } from '../store/slices/transactionsSlice';
+import { addTransaction } from '../store/transactionSlice';
 
 const AddTransactionScreen = () => {
   const dispatch = useDispatch();

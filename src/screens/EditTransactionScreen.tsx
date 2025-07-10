@@ -16,7 +16,7 @@ import { RouteProp } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { RootState } from '../store';
-import { updateTransaction, selectAllTransactions } from '../store/slices/transactionsSlice';
+import { updateTransaction } from '../store/transactionSlice';
 import { RootStackParamList } from '../navigation/AppNavigator';
 
 type EditTransactionRouteProp = RouteProp<RootStackParamList, 'EditTransaction'>;
@@ -27,7 +27,7 @@ const EditTransactionScreen = () => {
   const route = useRoute<EditTransactionRouteProp>();
   const { transactionId } = route.params;
 
-  const transactions = useSelector((state: RootState) => selectAllTransactions(state));
+  const transactions = useSelector((state: RootState) => state.transaction.transactions);
   const transaction = transactions.find(t => t.id === transactionId);
 
   const [description, setDescription] = useState('');

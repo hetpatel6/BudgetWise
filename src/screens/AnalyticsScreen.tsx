@@ -13,9 +13,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { LineChart, PieChart, BarChart } from 'react-native-chart-kit';
 
 import { RootState } from '../store';
-import { selectAllTransactions } from '../store/slices/transactionsSlice';
-import { selectAllBudgets } from '../store/slices/budgetsSlice';
-import { selectActiveInsights, selectSpendingPatterns } from '../store/slices/analyticsSlice';
+// Import types if needed
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -23,10 +21,10 @@ const AnalyticsScreen = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('6 Months');
   const [selectedChart, setSelectedChart] = useState('spending');
 
-  const transactions = useSelector((state: RootState) => selectAllTransactions(state));
-  const budgets = useSelector((state: RootState) => selectAllBudgets(state));
-  const insights = useSelector((state: RootState) => selectActiveInsights(state));
-  const spendingPatterns = useSelector((state: RootState) => selectSpendingPatterns(state));
+  const transactions = useSelector((state: RootState) => state.transaction.transactions);
+  const budgets = useSelector((state: RootState) => state.budget.budgets);
+  const insights: string[] = [];
+  const spendingPatterns: any[] = [];
 
   const periods = ['1 Month', '3 Months', '6 Months', '1 Year'];
   const chartTypes = [

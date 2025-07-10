@@ -14,14 +14,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { RootState } from '../store';
-import { 
-  selectAllBudgets, 
-  selectTotalBudget, 
-  selectTotalSpent,
-  selectOverBudgetCategories,
-  deleteBudget,
-  Budget
-} from '../store/slices/budgetsSlice';
+import { deleteBudget, Budget } from '../store/budgetSlice';
 import { RootStackParamList } from '../navigation/AppNavigator';
 
 type BudgetNavigationProp = StackNavigationProp<RootStackParamList>;
@@ -30,10 +23,10 @@ const BudgetScreen = () => {
   const navigation = useNavigation<BudgetNavigationProp>();
   const dispatch = useDispatch();
   
-  const budgets = useSelector((state: RootState) => selectAllBudgets(state));
-  const totalBudget = useSelector((state: RootState) => selectTotalBudget(state));
-  const totalSpent = useSelector((state: RootState) => selectTotalSpent(state));
-  const overBudgetCategories = useSelector((state: RootState) => selectOverBudgetCategories(state));
+  const budgets = useSelector((state: RootState) => state.budget.budgets);
+  const totalBudget = budgets.reduce((sum, budget) => sum + budget.amount, 0);
+  const totalSpent = budgets.reduce((sum, budget) => sum + budget.spent, 0);
+  const overBudgetCategories = budgets.filter(budget => budget.spent > budget.amount);
 
   const remainingBudget = totalBudget - totalSpent;
   const budgetUtilization = totalBudget > 0 ? (totalSpent / totalBudget) * 100 : 0;

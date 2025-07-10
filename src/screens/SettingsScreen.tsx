@@ -14,28 +14,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { RootState } from '../store';
-import { 
-  selectProfile,
-  selectNotifications,
-  selectSecurity,
-  selectAppearance,
-  selectPreferences,
-  updateProfile,
-  updateNotifications,
-  updateSecurity,
-  updateAppearance,
-  updatePreferences,
-  resetSettings
-} from '../store/slices/settingsSlice';
+// Settings functionality will be implemented later
 
 const SettingsScreen = () => {
   const dispatch = useDispatch();
   
-  const profile = useSelector((state: RootState) => selectProfile(state));
-  const notifications = useSelector((state: RootState) => selectNotifications(state));
-  const security = useSelector((state: RootState) => selectSecurity(state));
-  const appearance = useSelector((state: RootState) => selectAppearance(state));
-  const preferences = useSelector((state: RootState) => selectPreferences(state));
+  // Default settings values
+  const profile = { name: 'User', email: 'user@example.com' };
+  const notifications = { enabled: true, email: true, push: true };
+  const security = { biometric: false, pin: false };
+  const appearance = { theme: 'light', fontSize: 'medium' };
+  const preferences = { currency: 'USD', language: 'English' };
 
   const [showThemeModal, setShowThemeModal] = useState(false);
   const [showCurrencyModal, setShowCurrencyModal] = useState(false);
