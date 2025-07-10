@@ -14,11 +14,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { RootState } from '../store';
-import { 
-  selectAllTransactions, 
-  deleteTransaction,
-  Transaction 
-} from '../store/slices/transactionsSlice';
+import { deleteTransaction, Transaction } from '../store/transactionSlice';
 import { RootStackParamList } from '../navigation/AppNavigator';
 
 type TransactionsNavigationProp = StackNavigationProp<RootStackParamList>;
@@ -26,7 +22,7 @@ type TransactionsNavigationProp = StackNavigationProp<RootStackParamList>;
 const TransactionsScreen = () => {
   const navigation = useNavigation<TransactionsNavigationProp>();
   const dispatch = useDispatch();
-  const transactions = useSelector((state: RootState) => selectAllTransactions(state));
+  const transactions = useSelector((state: RootState) => state.transaction.transactions);
   
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');

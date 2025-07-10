@@ -14,8 +14,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { LineChart, PieChart } from 'react-native-chart-kit';
 
 import { RootState } from '../store';
-import { selectAllTransactions, selectRecentTransactions } from '../store/slices/transactionsSlice';
-import { selectAllBudgets, selectTotalBudget, selectTotalSpent } from '../store/slices/budgetsSlice';
 import { RootStackParamList } from '../navigation/AppNavigator';
 
 type DashboardNavigationProp = StackNavigationProp<RootStackParamList>;
@@ -24,11 +22,11 @@ const { width: screenWidth } = Dimensions.get('window');
 
 const DashboardScreen = () => {
   const navigation = useNavigation<DashboardNavigationProp>();
-  const transactions = useSelector((state: RootState) => selectAllTransactions(state));
-  const recentTransactions = useSelector((state: RootState) => selectRecentTransactions(state, 5));
-  const budgets = useSelector((state: RootState) => selectAllBudgets(state));
-  const totalBudget = useSelector((state: RootState) => selectTotalBudget(state));
-  const totalSpent = useSelector((state: RootState) => selectTotalSpent(state));
+  const transactions = useSelector((state: RootState) => state.transaction.transactions);
+  const recentTransactions = transactions.slice(0, 5);
+  const budgets = useSelector((state: RootState) => state.budget.budgets);
+  const totalBudget = budgets.reduce((sum, budget) => sum + budget.amount, 0);
+  const totalSpent = budgets.reduce((sum, budget) => sum + budget.spent, 0);
 
   // Calculate financial metrics
   const totalIncome = transactions

@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { addBudget } from '../store/slices/budgetsSlice';
+import { addBudget } from '../store/budgetSlice';
 
 const AddBudgetScreen = () => {
   const dispatch = useDispatch();
